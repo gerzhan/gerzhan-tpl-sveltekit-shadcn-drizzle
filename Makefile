@@ -8,13 +8,14 @@ CLEAN += $(BUILD_DIR)/*
 
 VERSION = $(shell node -e 'console.log(require("./package.json").version)')
 
-DOMAIN_NAME=payextension.dev
+PUBLIC_DOMAIN_NAME=localhost.dev
 
 #--- добавление переменных из переменных окружения
 ifneq (,$(wildcard ./.env))
     include .env
     export
 endif
+
 MAKEFILE_LIST = Makefile
 THIS_DIR := $(dir $(abspath $(firstword $(MAKEFILE_LIST))))
 
@@ -24,13 +25,13 @@ help: ## help - отображение списка доступных кома�
 
 mkcert_create: ## mkcert_create - первичная генерация ssl сертификатов для локальной разработки
 	mkdir -p .mkcert && echo .mkcert >> .gitignore && echo .mkcert >> .dockerignore
-	mkcert -key-file ./.mkcert/key.pem -cert-file ./.mkcert/cert.pem $(DOMAIN_NAME) "*.$(DOMAIN_NAME)" localhost
+	mkcert -key-file ./.mkcert/key.pem -cert-file ./.mkcert/cert.pem $(PUBLIC_DOMAIN_NAME) "*.$(PUBLIC_DOMAIN_NAME)" localhost
 
 version: ## version - текущая версия репозитория
 	@printf "%s\n" "$(VERSION)"
 
 domain: ## domain name
-	@printf "%s\n" "$(DOMAIN_NAME) "
+	@printf "%s\n" "$(PUBLIC_DOMAIN_NAME) "
 
 db_studio: ## db_studio - UI для просмотра содеражения БД
 	npx drizzle-kit studio --config=drizzle.config.ts
