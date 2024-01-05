@@ -2,7 +2,7 @@
   "useTabs": false,
   "singleQuote": true,
   "svelteBracketNewLine": false,
-  "singleAttributePerLine": true,
+  "singleAttributePerLine": false,
   "bracketSameLine": true,
   "trailingComma": "none",
   "printWidth": 180,
